@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
+import { LanguageProvider } from "@/lib/i18n/LanguageContext";
 
 export const metadata: Metadata = {
   title: {
@@ -40,19 +41,21 @@ export default function RootLayout({
         <script src="https://checkout.razorpay.com/v1/checkout.js" async />
       </head>
       <body className="min-h-screen flex flex-col">
-        <Toaster
-          position="top-center"
-          toastOptions={{
-            duration: 3000,
-            style: {
-              background: '#1a3a2a',
-              color: '#fff',
-              borderRadius: '0.5rem',
-              fontSize: '0.875rem',
-            },
-          }}
-        />
-        {children}
+        <LanguageProvider>
+          <Toaster
+            position="top-center"
+            toastOptions={{
+              duration: 3000,
+              style: {
+                background: '#1a3a2a',
+                color: '#fff',
+                borderRadius: '0.5rem',
+                fontSize: '0.875rem',
+              },
+            }}
+          />
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );

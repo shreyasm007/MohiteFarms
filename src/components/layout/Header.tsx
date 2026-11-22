@@ -5,6 +5,8 @@ import { useState, useEffect } from 'react';
 import { ShoppingCart, Menu, X, User, ChevronDown, LogOut } from 'lucide-react';
 import { useCartStore } from '@/lib/store/cart';
 import { createClient } from '@/lib/supabase/client';
+import { useLanguage } from '@/lib/i18n/LanguageContext';
+import { LanguageSwitcher } from '@/components/ui/LanguageSwitcher';
 import type { User as SupabaseUser } from '@supabase/supabase-js';
 
 export function Header() {
@@ -14,6 +16,7 @@ export function Header() {
   const [showUserMenu, setShowUserMenu] = useState(false);
   const totalItems = useCartStore((s) => s.getTotalItems());
   const [mounted, setMounted] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     setMounted(true);
@@ -44,10 +47,10 @@ export function Header() {
   };
 
   const navLinks = [
-    { href: '/products', label: 'Products' },
-    { href: '/about', label: 'About Us' },
-    { href: '/faq', label: 'FAQs' },
-    { href: '/contact', label: 'Contact' },
+    { href: '/products', label: t.nav.products },
+    { href: '/about', label: t.nav.about },
+    { href: '/faq', label: t.nav.faq },
+    { href: '/contact', label: t.nav.contact },
   ];
 
   return (
@@ -70,7 +73,7 @@ export function Header() {
                 Mohite Farms
               </span>
               <span className="text-gold-light text-[0.6rem] tracking-[0.2em] uppercase hidden sm:block">
-                Farm to Table
+                {t.nav.farmToTable}
               </span>
             </div>
           </Link>
@@ -89,7 +92,10 @@ export function Header() {
           </nav>
 
           {/* Right side */}
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
+            {/* Language Switcher */}
+            {mounted && <LanguageSwitcher />}
+
             {/* User */}
             {mounted && (
               <div className="relative">
@@ -110,7 +116,7 @@ export function Header() {
                     className="flex items-center gap-1.5 text-cream/80 hover:text-gold-light transition-colors text-sm"
                   >
                     <User className="w-5 h-5" />
-                    <span className="hidden sm:inline">Sign In</span>
+                    <span className="hidden sm:inline">{t.nav.signIn}</span>
                   </Link>
                 )}
 
@@ -125,14 +131,14 @@ export function Header() {
                       className="block px-3 py-2 text-sm text-foreground hover:bg-cream transition-colors"
                       onClick={() => setShowUserMenu(false)}
                     >
-                      My Orders
+                      {t.nav.myOrders}
                     </Link>
                     <button
                       onClick={handleSignOut}
                       className="w-full text-left px-3 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors flex items-center gap-2"
                     >
                       <LogOut className="w-3.5 h-3.5" />
-                      Sign Out
+                      {t.nav.signOut}
                     </button>
                   </div>
                 )}
@@ -185,7 +191,7 @@ export function Header() {
                 className="text-gold hover:text-gold-light hover:bg-white/5 py-3 px-3 rounded-lg text-sm font-medium transition-all border-t border-white/10 mt-2 pt-4"
                 onClick={() => setIsMenuOpen(false)}
               >
-                Sign In / Create Account
+                {t.nav.signInCreate}
               </Link>
             )}
           </nav>
