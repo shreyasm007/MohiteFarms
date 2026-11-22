@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import Link from 'next/link';
 import { createServiceRoleClient } from '@/lib/supabase/server';
 import { formatPrice, formatDate, getOrderStatusColor, getPaymentStatusColor } from '@/lib/utils';

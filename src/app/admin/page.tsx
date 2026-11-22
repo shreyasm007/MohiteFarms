@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic';
+
 import { createServiceRoleClient } from '@/lib/supabase/server';
 import { Package, ShoppingCart, IndianRupee, AlertTriangle } from 'lucide-react';
 import { formatPrice } from '@/lib/utils';
